@@ -4,8 +4,8 @@
     <p>A descision making aid tool for pilot and airlines</p>
     <h1>What is it</h1>
     <ul>
-      <li>These points are subject to disruptoin due to weather, closures, diversion etc..</li>
-      <li>When disruptoin haapens, The pilot/airline are not airformed until approaching the point, which is leads to diversions that is not optimal</li>
+      <li>These points are subject to disruption due to weather, closures, diversion etc..</li>
+      <li>When a disruption happens, The pilot/airline are not informed until approaching the point, which is leads to diversions that is not optimal</li>
       <li>SWIM navigator provides a mean to detect this changes using external data sources and inform the pilot/airlines ahead of time, or provide and alternatives.</li>
     </ul>
   </div>
