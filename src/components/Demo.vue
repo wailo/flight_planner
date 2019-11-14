@@ -44,6 +44,7 @@ export default {
   },
   data: function() {
     return {
+      auto_route : Boolean,
       nodes: [
         {
           alt: 0,
@@ -176,37 +177,24 @@ export default {
       }
 
       this.$set(this.nodes, node.index, node);
+      if (this.auto_route) {
+        this.update_links(null)
+      }
     },
     update_links: function(event) {
-      var links = [];
-      var i = 0;
-      var j = i + 1;
-      while (j < this.nodes.length - 1) {
-        while (this.nodes[i].selected && i < this.nodes.length - 2) {
-          i++;
+      var active_nodes = []
+      var links = []
+      for (var i in this.nodes) {
+        if (!this.nodes[i].selected) {
+          active_nodes.push(this.nodes[i]);
         }
-        // We reached the end of the array. Stop
-        if (i > this.nodes.length - 2) {
-          break;
-        }
-
-        // Sid found
-        j = i + 1;
-
-        while (this.nodes[j].selected && j < this.nodes.length - 1) {
-          j++;
-        }
-
-        // We reached the end of the array. Stop
-        if (j > this.nodes.length - 1) {
-          break;
-        }
-
-        // Push link
-        links.push({sid:i, tid:j})
-        i = j;
       }
-      this.links = links
+
+      for (i = 1; i < active_nodes.length; i++) {
+        // Push link
+        links.push({ sid: active_nodes[i - 1].id, tid: active_nodes[i].id });
+      }
+      this.links = links;
     }
   },
   computed: {
