@@ -44,7 +44,7 @@ export default {
   },
   data: function() {
     return {
-      auto_route : Boolean,
+      auto_route: Boolean,
       nodes: [
         {
           alt: 0,
@@ -178,23 +178,25 @@ export default {
 
       this.$set(this.nodes, node.index, node);
       if (this.auto_route) {
-        this.update_links(null)
+        this.update_links(null);
       }
     },
     update_links: function(event) {
-      var active_nodes = []
-      var links = []
+      var active_nodes = [];
+      var links = [];
+      var sid = null;
       for (var i in this.nodes) {
+        var node = this.nodes[i];
         if (!this.nodes[i].selected) {
-          active_nodes.push(this.nodes[i]);
+          if (sid === null) {
+            sid = node.id;
+          } else {
+            links.push({ sid: sid, tid: node.id });
+            sid = node.id;
+          }
         }
+        this.links = links;
       }
-
-      for (i = 1; i < active_nodes.length; i++) {
-        // Push link
-        links.push({ sid: active_nodes[i - 1].id, tid: active_nodes[i].id });
-      }
-      this.links = links;
     }
   },
   computed: {
