@@ -26,7 +26,6 @@
     "@vue/cli-plugin-typescript": "^4.0.0",
     "@vue/cli-service": "^4.0.0",
     "typescript": "~3.5.3",
-    "vue-cli-plugin-fullpage": "^1.0.2",
     "vue-cli-plugin-vuesax": "^1.0.0",
     "vue-template-compiler": "^2.6.10"
   }

@@ -321,7 +321,7 @@ export default {
   stroke: rgba(243, 243, 243, 0.7);
   stroke-width: 1;
   transition: fill 0.5s ease;
-  fill: rgba(243, 243, 243, 0.7);
+  fill: rgba(7, 7, 7, 0.7);
 }
 .link:hover {
   /* stroke: rgba(43, 15, 201, 0.7); */
