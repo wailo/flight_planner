@@ -1,0 +1,251 @@
+{
+  "nodes": [
+    {
+      "alt": 0,
+      "id": 0,
+      "name": "EHAM",
+      "lat": 52.308099999999996,
+      "lon": 4.764170000000007,
+      "description": "Amsterdam Schiphol",
+      "type": "APT",
+      "via": "",
+      "status": "ACTIVE"
+    },
+    {
+      "alt": 0,
+      "id": 1,
+      "name": "PAM",
+      "lat": 52.3348,
+      "lon": 5.092160000000007,
+      "description": "PAMPUS",
+      "type": "VOR",
+      "via": "",
+      "status": "ACTIVE"
+    },
+    {
+      "alt": 0,
+      "id": 2,
+      "name": "NYKER",
+      "lat": 52.2304,
+      "lon": 5.52879999999999,
+      "description": "",
+      "type": "FIX",
+      "via": "",
+      "status": "ACTIVE"
+    },
+    {
+      "alt": 0,
+      "id": 3,
+      "name": "ARNEM",
+      "lat": 52.09640000000002,
+      "lon": 6.076600000000013,
+      "description": "",
+      "type": "FIX",
+      "via": "",
+      "status": "ACTIVE"
+    },
+    {
+      "alt": 0,
+      "id": 4,
+      "name": "TEBRO",
+      "lat": 51.89420000000001,
+      "lon": 6.587780000000009,
+      "description": "",
+      "type": "FIX",
+      "via": "",
+      "status": "ACTIVE"
+    },
+    {
+      "alt": 0,
+      "id": 5,
+      "name": "KOMOT",
+      "lat": 51.628600000000006,
+      "lon": 7.074170000000009,
+      "description": "",
+      "type": "FIX",
+      "via": "",
+      "status": "ACTIVE"
+    },
+    {
+      "alt": 0,
+      "id": 6,
+      "name": "SIGEN",
+      "lat": 50.84610000000001,
+      "lon": 8.279439999999994,
+      "description": "",
+      "type": "FIX",
+      "via": "",
+      "status": "ACTIVE"
+    },
+    {
+      "alt": 0,
+      "id": 7,
+      "name": "MTR",
+      "lat": 50.27629999999999,
+      "lon": 8.848630000000014,
+      "description": "METRO",
+      "type": "VOR",
+      "via": "",
+      "status": "ACTIVE"
+    },
+    {
+      "alt": 0,
+      "id": 8,
+      "name": "REDGO",
+      "lat": 50.10919999999999,
+      "lon": 8.856369999999998,
+      "description": "",
+      "type": "FIX",
+      "via": "",
+      "status": "ACTIVE"
+    },
+    {
+      "name": "ABA02",
+      "lat": 52.2576277778,
+      "lon": 4.77401388889,
+      "type": "FIX"
+    },
+    { "name": "RODIR", "lat": 53.4376722222, "lon": 5.0, "type": "FIX" },
+    {
+      "name": "ROLDU",
+      "lat": 52.8893555556,
+      "lon": 6.19885833333,
+      "type": "FIX"
+    },
+    { "name": "RONSA", "lat": 51.504075, "lon": 4.44178888889, "type": "FIX" },
+    {
+      "name": "RUSAL",
+      "lat": 51.3807555556,
+      "lon": 5.13478055556,
+      "type": "FIX"
+    },
+    {
+      "name": "SITSU",
+      "lat": 53.4003944444,
+      "lon": 4.68468888889,
+      "type": "FIX"
+    },
+    {
+      "name": "SOKSI",
+      "lat": 52.2373777778,
+      "lon": 4.36443333333,
+      "type": "FIX"
+    },
+    {
+      "name": "SOMEL",
+      "lat": 51.9407083333,
+      "lon": 4.08911944444,
+      "type": "FIX"
+    },
+    {
+      "name": "SOMVA",
+      "lat": 52.3072222222,
+      "lon": 2.64401111111,
+      "type": "FIX"
+    },
+    {
+      "name": "SONSA",
+      "lat": 52.3308944444,
+      "lon": 6.74558611111,
+      "type": "FIX"
+    },
+    {
+      "name": "SOTAP",
+      "lat": 53.5820333333,
+      "lon": 4.89253333333,
+      "type": "FIX"
+    },
+    {
+      "name": "TEVKA",
+      "lat": 53.7256166667,
+      "lon": 4.76666666667,
+      "type": "FIX"
+    },
+    { "name": "TILVU", "lat": 51.5179, "lon": 5.10377222222, "type": "FIX" },
+    {
+      "name": "TIREP",
+      "lat": 54.0294027778,
+      "lon": 4.71670555556,
+      "type": "FIX"
+    },
+    {
+      "name": "TOLKO",
+      "lat": 53.1189361111,
+      "lon": 6.36258055556,
+      "type": "FIX"
+    },
+    {
+      "name": "TORGA",
+      "lat": 52.5985638889,
+      "lon": 5.20319722222,
+      "type": "FIX"
+    },
+    { "name": "ULPAT", "lat": 52.47, "lon": 4.595, "type": "FIX" },
+    {
+      "name": "ULSED",
+      "lat": 53.7497111111,
+      "lon": 5.70999166667,
+      "type": "FIX"
+    },
+    {
+      "name": "UNORA",
+      "lat": 54.0495611111,
+      "lon": 5.43781944444,
+      "type": "FIX"
+    },
+    {
+      "name": "UNVAR",
+      "lat": 54.4998388889,
+      "lon": 5.00796666667,
+      "type": "FIX"
+    },
+    {
+      "name": "VEDAM",
+      "lat": 52.9967472222,
+      "lon": 6.89567222222,
+      "type": "FIX"
+    },
+    {
+      "name": "VELED",
+      "lat": 51.3901305556,
+      "lon": 5.36704166667,
+      "type": "FIX"
+    },
+    { "name": "VOLLA", "lat": 52.3141805556, "lon": 4.1562, "type": "FIX" },
+    {
+      "name": "XAMAN",
+      "lat": 51.7847583333,
+      "lon": 2.22422777778,
+      "type": "FIX"
+    },
+    {
+      "alt": 0,
+      "id": 9,
+      "name": "EDDF",
+      "lat": 50.0326,
+      "lon": 8.540670000000006,
+      "description": "Frankfurt",
+      "type": "APT",
+      "via": "",
+      "status": "ACTIVE"
+    }
+  ],
+  "links": [
+    { "sid": 0, "tid": 1 },
+    { "sid": 1, "tid": 2 },
+    { "sid": 2, "tid": 3 },
+    { "sid": 3, "tid": 4 },
+    { "sid": 4, "tid": 5 },
+    { "sid": 5, "tid": 6 },
+    { "sid": 6, "tid": 7 },
+    { "sid": 7, "tid": 8 },
+    { "sid": 8, "tid": 9 }
+  ],
+  "options": {
+    "force": 1000,
+    "nodeSize": 20,
+    "nodeLabels": true,
+    "linkWidth": 1,
+    "canvas": false
+  }
+}
