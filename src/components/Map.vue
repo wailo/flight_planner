@@ -5,6 +5,7 @@
 <script>
 import { LMap, LTileLayer, LMarker } from "vue2-leaflet";
 import nodes from "@/assets/waypoints.json";
+import nodes from "@/assets/flightplans.json";
 export default {
   name: "MyAwesomeMap",
   components: {

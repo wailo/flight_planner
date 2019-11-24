@@ -1,0 +1,24 @@
+{
+  "flights": [
+    {
+      "name": "EHAM-EDFF",
+      "links": [
+        { "s": "EHAM", "t": "PAM" },
+        { "s": "PAM", "t": "NYKER" },
+        { "s": "NYKER", "t": "ARNEM" },
+        { "s": "ARNEM", "t": "TERBO" },
+        { "s": "TERBO", "t": "EDDF" }
+      ]
+    },
+
+    {
+      "name": "EHAM-RODIR",
+      "links": [
+        { "s": "EHAM", "t": "KOMTO" },
+        { "s": "KOMTO", "t": "SIGEN" },
+        { "s": "MTR", "t": "REDGO" },
+        { "s": "ABA02", "t": "RODIR" }
+      ]
+    }
+  ]
+}
