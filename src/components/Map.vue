@@ -5,7 +5,7 @@
 <script>
 import { LMap, LTileLayer, LMarker } from "vue2-leaflet";
 import nodes from "@/assets/waypoints.json";
-import nodes from "@/assets/flightplans.json";
+import flights from "@/assets/flightplans.json";
 export default {
   name: "MyAwesomeMap",
   components: {
@@ -13,9 +13,11 @@ export default {
     LTileLayer,
     LMarker
   },
+  props: {},
   data: function() {
     return {
       nodes: nodes["nodes"],
+      flights: flights["flights"],
       map: null,
       icon: L.icon({
         iconUrl: "https://img.icons8.com/plasticine/50/000000/marker.png",
@@ -40,6 +42,16 @@ export default {
       var polyline = L.polyline(latlngs, { color: "red" }).addTo(this.map);
       // zoom the map to the polyline
       this.map.fitBounds(polyline.getBounds());
+    },
+    node_by_name: function(node_name) {
+      var res = this.nodes.filter(function(node) {
+        return node.name === node_name;
+      });
+
+      if (res.length === 0) {
+        throw node_name + " not found";
+      }
+      return res;
     }
   },
   mounted() {
@@ -59,9 +71,14 @@ export default {
       this.nodes.forEach(node => {
         this.create_marker(node);
       });
-      for (var i = 1; i < this.nodes.length; ++i) {
-        this.create_link(this.nodes[i - 1], this.nodes[i]);
-      }
+
+      this.flights.forEach(flight => {
+        flight.links.forEach(link => {
+          var s_node = this.node_by_name(link.s);
+          var t_node = this.node_by_name(link.t);
+          this.create_link(s_node[0], t_node[0]);
+        });
+      });
     });
   }
 };
