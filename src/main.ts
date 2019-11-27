@@ -5,6 +5,7 @@ import "./plugins/vuesax.js";
 
 import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
+import './plugins/vuesax.js'
 
 // this part resolve an issue where the markers would not appear
 // delete Icon.Default.prototype._getIconUrl;
