@@ -1,8 +1,8 @@
 <template>
   <div class="app">
-    <h1>Demo</h1>
     <Map />
-    <Demo />
+    <FlightsMenu v-bind:flightplans="flightPlans" />
+    <!-- <Demo /> -->
   </div>
 </template>
 
@@ -10,11 +10,18 @@
 import HelloWorld from "@/components/HelloWorld";
 import Demo from "@/components/Demo";
 import Map from "@/components/Map";
+import FlightsMenu from "@/components/FlightsMenu";
+
 export default {
   name: "App",
-  components: { HelloWorld, Demo, Map },
+  components: { HelloWorld, Demo, Map, FlightsMenu },
   data() {
     return {};
+  },
+  computed: {
+    flightPlans() {
+      return this.$store.state.flightPlans;
+    }
   }
 };
 </script>

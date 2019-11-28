@@ -55,6 +55,8 @@ export default {
     }
   },
   mounted() {
+    // Update flight plans
+    this.$store.commit('setFlightPlans', this.flights)
     this.$nextTick(() => {
       this.map = this.$refs.myMap.mapObject.setView([52.3, 4.76], 8);
 
