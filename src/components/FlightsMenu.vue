@@ -40,7 +40,6 @@ export default {
       });
     },
     doubleSelection(tr) {
-      this.selected = [tr];
       this.$vs.notify({
         title: `Double Selection ${tr.name}`,
         color: "success"
