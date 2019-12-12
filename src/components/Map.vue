@@ -8,10 +8,10 @@
       max="200"
       value="50"
       v-model="max_edge_distance"
-      @change="create_edges"
+      @change="update_links"
       class="slider"
       id="myRange"
-    >
+    />
   </div>
 </template>
 
@@ -20,7 +20,6 @@ import { LMap, LTileLayer, LMarker } from "vue2-leaflet";
 import nodes from "@/assets/waypoints.json";
 import flights from "@/assets/flightplans.json";
 import map_polygons from "@/assets/map.json";
-import marker_logo from "@/assets/circle.png";
 import * as Algorithms from "@/Algorithms.js";
 
 export default {
@@ -47,7 +46,7 @@ export default {
       }),
       Algorithms: Algorithms,
       max_edge_distance: 10,
-      map_polylines: []
+      waypoints_polylines: []
     };
   },
   methods: {
@@ -65,12 +64,9 @@ export default {
         .addTo(this.map)
         .bindPopup(node.name);
     },
-    create_edges: function() {
-      this.edges = [];
-      this.map_polylines.forEach(p => {
-        p.remove(this.map)
-      })
-      this.nodes.forEach(node => {
+    create_links: function(nodes) {
+      var waypoints_links = new Array();
+      nodes.forEach(node => {
         for (let index = 0; index < this.nodes.length; index++) {
           const node_B = this.nodes[index];
           if (node_B.id == node.id) {
@@ -87,11 +83,19 @@ export default {
           ) {
             continue;
           }
-          this.edges.push([node.id, node_B.id]);
-          let polyline = this.draw_link(node, node_B);
-          this.map_polylines.push(polyline)
+          waypoints_links.push([node, node_B]);
         }
       });
+      return waypoints_links;
+    },
+    create_edges: function(links) {
+      var waypoints_polylines = new Array();
+
+      links.forEach(edge => {
+        let polyline = this.draw_link(edge[0], edge[1]);
+        waypoints_polylines.push(polyline);
+      });
+      return waypoints_polylines;
     },
     draw_link: function(start_node, end_node) {
       var latlngs = [
@@ -107,6 +111,26 @@ export default {
       return polyline;
       // zoom the map to the polyline
       // this.map.fitBounds(polyline.getBounds());
+    },
+    update_links: function(baseMaps) {
+      // FIXME This does not work because baseMaps is undefined when passed from the slider event
+      // Remove old edges
+      this.waypoints_polylines.forEach(p => {
+        p.remove(this.map);
+      });
+
+      // Create graph links
+      const links = this.create_links(this.nodes);
+      // Create polylines on the map
+      this.waypoints_polylines = this.create_edges(links);
+      // Add control layer
+      var waypoint_edges = L.layerGroup(this.map_polylines);
+      // Create an overlay map
+      var overlayMaps = {
+        waypoint_edges: waypoint_edges
+      };
+
+      L.control.layers(baseMaps, overlayMaps).addTo(this.map);
     },
     node_by_name: function(node_name) {
       var res = this.nodes.filter(function(node) {
@@ -148,9 +172,10 @@ export default {
       };
 
       // this.tileLayer.addTo(this.map);
-      L.geoJSON(this.polygons, {
+      var polygons = L.geoJSON(this.polygons, {
         style: myStyle
       }).addTo(this.map);
+
       this.nodes.forEach(node => {
         this.create_marker(node);
       });
@@ -162,8 +187,12 @@ export default {
           this.draw_link(s_node[0], t_node[0]);
         });
       });
-      // Create edges
-      this.create_edges();
+
+      var baseMaps = {
+        Polygons: polygons
+      };
+
+      this.update_links(baseMaps);
     });
   }
 };
