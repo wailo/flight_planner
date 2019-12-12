@@ -1,5 +1,18 @@
 <template>
-  <l-map ref="myMap" class="map"></l-map>
+  <div>
+    <l-map ref="myMap" class="map"></l-map>
+    <label>{{max_edge_distance}}</label>
+    <input
+      type="range"
+      min="1"
+      max="200"
+      value="50"
+      v-model="max_edge_distance"
+      @change="create_edges"
+      class="slider"
+      id="myRange"
+    >
+  </div>
 </template>
 
 <script>
@@ -7,7 +20,9 @@ import { LMap, LTileLayer, LMarker } from "vue2-leaflet";
 import nodes from "@/assets/waypoints.json";
 import flights from "@/assets/flightplans.json";
 import map_polygons from "@/assets/map.json";
-import marker_logo from '@/assets/logo.png';
+import marker_logo from "@/assets/circle.png";
+import * as Algorithms from "@/Algorithms.js";
+
 export default {
   name: "MyAwesomeMap",
   components: {
@@ -19,30 +34,77 @@ export default {
   data: function() {
     return {
       nodes: nodes["nodes"],
+      edges: [],
       flights: flights["flights"],
       polygons: map_polygons,
       map: null,
       icon: L.icon({
         iconUrl: marker_logo,
-        iconSize: [10, 10] // size of the icon
+        iconSize: [20, 20] // size of the icon
         // iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
-        //  shadowAnchor: [4, 62], // the same for the shadow
+        // shadowAnchor: [4, 62], // the same for the shadow
         // popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
-      })
+      }),
+      Algorithms: Algorithms,
+      max_edge_distance: 10,
+      map_polylines: []
     };
   },
   methods: {
     create_marker: function(node) {
-      L.marker([node.lat, node.lon], { icon: this.icon })
+      let ic = new L.DivIcon({
+        className: "my-div-icon",
+        html:
+          '<svg height="20" width="20">  <circle cx="10" cy="10" r="10" stroke="black" stroke-width="1" fill="white" /> </svg>' +
+          "<span>" +
+          node.name +
+          "</span>"
+      });
+
+      L.marker([node.lat, node.lon], { icon: ic })
         .addTo(this.map)
         .bindPopup(node.name);
     },
-    create_link: function(start_node, end_node) {
+    create_edges: function() {
+      this.edges = [];
+      this.map_polylines.forEach(p => {
+        p.remove(this.map)
+      })
+      this.nodes.forEach(node => {
+        for (let index = 0; index < this.nodes.length; index++) {
+          const node_B = this.nodes[index];
+          if (node_B.id == node.id) {
+            continue;
+          }
+          if (
+            Algorithms.distance(
+              node.lat,
+              node.lon,
+              node_B.lat,
+              node_B.lon,
+              "nm"
+            ) > this.max_edge_distance
+          ) {
+            continue;
+          }
+          this.edges.push([node.id, node_B.id]);
+          let polyline = this.draw_link(node, node_B);
+          this.map_polylines.push(polyline)
+        }
+      });
+    },
+    draw_link: function(start_node, end_node) {
       var latlngs = [
         [start_node.lat, start_node.lon],
         [end_node.lat, end_node.lon]
       ];
-      var polyline = L.polyline(latlngs, { color: "red", weight:1 }).addTo(this.map);
+      var polyline = L.polyline(latlngs, {
+        color: "red",
+        weight: 1,
+        opacity: 1.0
+      }).addTo(this.map);
+
+      return polyline;
       // zoom the map to the polyline
       // this.map.fitBounds(polyline.getBounds());
     },
@@ -58,6 +120,12 @@ export default {
     }
   },
   mounted() {
+    // Add nodes ID
+    for (let index = 0; index < this.nodes.length; index++) {
+      let node = this.nodes[index];
+      node.id = index;
+    }
+
     // Update flight plans
     this.$store.commit("setFlightPlans", this.flights);
     this.$nextTick(() => {
@@ -91,9 +159,11 @@ export default {
         flight.links.forEach(link => {
           var s_node = this.node_by_name(link.s);
           var t_node = this.node_by_name(link.t);
-          this.create_link(s_node[0], t_node[0]);
+          this.draw_link(s_node[0], t_node[0]);
         });
       });
+      // Create edges
+      this.create_edges();
     });
   }
 };
@@ -101,7 +171,7 @@ export default {
 
 <style scoped>
 .leaflet-container {
-    background-color:rgba(0,0,0,0.1);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .map {
