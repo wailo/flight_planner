@@ -16,6 +16,7 @@
       "links": [
         { "s": "EHAM", "t": "KOMOT" },
         { "s": "KOMOT", "t": "SIGEN" },
+        { "s": "SIGEN", "t": "MTR" },
         { "s": "MTR", "t": "REDGO" },
         { "s": "ABA02", "t": "RODIR" }
       ]
