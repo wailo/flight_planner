@@ -1,4 +1,4 @@
-# landing_page
+# Flight Planner
 
 ## Project setup
 ```
