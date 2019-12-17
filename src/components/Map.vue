@@ -33,17 +33,10 @@ export default {
   data: function() {
     return {
       nodes: nodes["nodes"],
-      edges: [],
+      links: {},
       flights: flights["flights"],
       polygons: map_polygons,
       map: null,
-      icon: L.icon({
-        iconUrl: marker_logo,
-        iconSize: [20, 20] // size of the icon
-        // iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
-        // shadowAnchor: [4, 62], // the same for the shadow
-        // popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
-      }),
       Algorithms: Algorithms,
       max_edge_distance: 10,
       waypoints_polylines: []
@@ -65,7 +58,7 @@ export default {
         .bindPopup(node.name);
     },
     create_links: function(nodes) {
-      var waypoints_links = new Array();
+      var waypoints_links = {};
       nodes.forEach(node => {
         for (let index = 0; index < this.nodes.length; index++) {
           const node_B = this.nodes[index];
@@ -83,17 +76,29 @@ export default {
           ) {
             continue;
           }
-          waypoints_links.push([node, node_B]);
+          if (node.id in waypoints_links) {
+            waypoints_links[node.id].push(node_B.id);
+          } else {
+            waypoints_links[node.id] = new Array();
+            waypoints_links[node.id].push(node_B.id);
+          }
+          waypoints_links[node.id].push(node_B.id);
+          // waypoints_links.push([node, node_B]);
         }
       });
       return waypoints_links;
     },
     create_edges: function(links) {
       var waypoints_polylines = new Array();
-
-      links.forEach(edge => {
-        let polyline = this.draw_link(edge[0], edge[1]);
-        waypoints_polylines.push(polyline);
+      Object.keys(links).map(Number).forEach(key => {
+        let adj_nodes_keys = links[key];
+        adj_nodes_keys.forEach(adj_node_key => {
+          let polyline = this.draw_link(
+            this.node_by_id(key)[0],
+            this.node_by_id(adj_node_key)[0]
+          );
+          waypoints_polylines.push(polyline);
+        });
       });
       return waypoints_polylines;
     },
@@ -138,7 +143,17 @@ export default {
       });
 
       if (res.length === 0) {
-        throw node_name + " not found";
+        throw "Node with name: " + node_name + " not found";
+      }
+      return res;
+    },
+    node_by_id: function(node_id) {
+      var res = this.nodes.filter(function(node) {
+        return node.id === node_id;
+      });
+
+      if (res.length === 0) {
+        throw "Node with id: " + node_id + " not found";
       }
       return res;
     }
